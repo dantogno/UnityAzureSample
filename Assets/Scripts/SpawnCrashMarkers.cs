@@ -9,6 +9,9 @@ public class SpawnCrashMarkers : MonoBehaviour
     [SerializeField]
     private GameObject markerPrefab;
 
+    [SerializeField]
+    int numberOfAttempts = 3;
+
     List<CrashInfo> crashesFromServer;
     IMobileServiceTable<CrashInfo> crashesTable;
 
@@ -23,8 +26,26 @@ public class SpawnCrashMarkers : MonoBehaviour
     private async Task InitializeCrashList()
     {
         Debug.Log("Downloading crash data from Azure...");
-        crashesFromServer = await crashesTable.ToListAsync();
-        Debug.Log("Done downloading.");
+
+        for (int i = 0; i < numberOfAttempts; i++)
+        {
+            try
+            {
+                Debug.Log("Connecting... attempt " + (i +1));
+                crashesFromServer = await crashesTable.ToListAsync();
+                Debug.Log("Done downloading.");
+                return;
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("Error connecting: " + e.Message);
+            }
+
+            if (i == numberOfAttempts - 1)
+                Debug.Log("Connection failed. Check logs, try again later.");
+            else
+                await Task.Delay(500);
+        }
     }
 
     private void SpawnMarkersFromList()
