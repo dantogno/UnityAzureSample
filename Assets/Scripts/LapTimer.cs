@@ -7,9 +7,26 @@ using UnityEngine.UI;
 
 public class LapTimer : MonoBehaviour
 {
+    public static Action<float> AfterMostRecentScoreSet;
     private Text timeText;
-    private float laptTime = 0f;
+    private float lapTime = 0f;
     private bool raceFinished = false;
+
+    private float mostRecentScore;
+
+    public float MostRecentScore
+    {
+        get
+        {
+            return mostRecentScore;
+        }
+
+        set
+        {
+            mostRecentScore = value;
+            AfterMostRecentScoreSet?.Invoke(mostRecentScore);
+        }
+    }
 
     private void Start()
     {
@@ -25,8 +42,8 @@ public class LapTimer : MonoBehaviour
     {
         if (!raceFinished)
         {
-            laptTime += Time.deltaTime;
-            TimeSpan timeSpan = TimeSpan.FromSeconds(laptTime);
+            lapTime += Time.deltaTime;
+            TimeSpan timeSpan = TimeSpan.FromSeconds(lapTime);
 
             timeText.text = timeSpan.ToString(@"mm\:ss\:ff");
         }
@@ -34,7 +51,11 @@ public class LapTimer : MonoBehaviour
 
     private void OnRaceFinished()
     {
-        raceFinished = true;
+        if (!raceFinished)
+        {
+            raceFinished = true;
+            MostRecentScore = lapTime;
+        }
     }
 
     private void OnEnable()

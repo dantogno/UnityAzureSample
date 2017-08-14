@@ -5,7 +5,7 @@ using Microsoft.WindowsAzure.MobileServices;
 
 public static class AzureMobileServiceClient
 {
-    private const string backendUrl = "http://dpa-mobile-app-test1.azurewebsites.net";
+    private const string backendUrl = "http://unitytestmobileapp.azurewebsites.net";
 
     private static MobileServiceClient client;
 

@@ -65,10 +65,10 @@ public class RecordCrashInfo : MonoBehaviour
 
     private void OnRaceFinished()
     {
-        Task.Run(UploadNewCrashData);
+        Task.Run(UploadNewCrashDataAsync);
     }
 
-    private async Task UploadNewCrashData()
+    private async Task UploadNewCrashDataAsync()
     {
         var crashTable = AzureMobileServiceClient.Client.GetTable<CrashInfo>();
 
@@ -80,7 +80,7 @@ public class RecordCrashInfo : MonoBehaviour
             {
                 await crashTable.InsertAsync(item);
             }
-            Debug.Log("Finished uploading.");
+            Debug.Log("Finished uploading crash data.");
         }
         catch (System.Exception e)
         {

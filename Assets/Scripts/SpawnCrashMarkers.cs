@@ -15,15 +15,14 @@ public class SpawnCrashMarkers : MonoBehaviour
     List<CrashInfo> crashesFromServer;
     IMobileServiceTable<CrashInfo> crashesTable;
 
-    // Use this for initialization
     async void Start()
     {
         crashesTable = AzureMobileServiceClient.Client.GetTable<CrashInfo>();
-        await Task.Run(InitializeCrashList);
+        await Task.Run(InitializeCrashListAsync);
         SpawnMarkersFromList();
     }
 
-    private async Task InitializeCrashList()
+    private async Task InitializeCrashListAsync()
     {
         Debug.Log("Downloading crash data from Azure...");
 
