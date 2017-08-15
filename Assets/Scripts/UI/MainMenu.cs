@@ -15,6 +15,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("ReadDataScene");
     }
 
+    public void LeaderboardButtonClicked()
+    {
+        SceneManager.LoadScene("LeaderboardScene");
+    }
+
     public void ExitButtonClicked()
     {
         Application.Quit();

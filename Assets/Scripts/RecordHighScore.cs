@@ -18,18 +18,13 @@ public class RecordHighScore : MonoBehaviour
     [SerializeField]
     private CanvasGroup enterNamePopup;
 
-    private IMobileServiceTable<HighScoreInfo> highScoreTable;
     private List<HighScoreInfo> highScores;
     private string playerName = string.Empty;
-
-    private const int sizeOfHighScoreList = 10;
 
     private async void Start()
     {
         ShowEnterNamePopup(false);
-
-        highScoreTable = AzureMobileServiceClient.Client.GetTable<HighScoreInfo>();
-        await Task.Run(DownloadHighScores);
+        highScores = await Leaderboard.GetTopHighScoresAsync();
     }
 
     private void ShowEnterNamePopup(bool shouldShow)
@@ -43,45 +38,17 @@ public class RecordHighScore : MonoBehaviour
         playerName = nameInputField.text;
     }
 
-    private async Task DownloadHighScores()
-    {
-        Debug.Log("Downloading high score data from Azure...");
-
-        for (int i = 0; i < numberOfAttempts; i++)
-        {
-            try
-            {
-                Debug.Log("Connecting... attempt " + (i + 1));
-
-                highScores = await highScoreTable
-                    .OrderBy(item => item.Time)
-                    .Take(sizeOfHighScoreList)
-                    .ToListAsync();
-
-                Debug.Log("Done downloading high score data.");
-                return;
-            }
-            catch (System.Exception e)
-            {
-                Debug.Log("Error connecting: " + e.Message);
-            }
-
-            if (i == numberOfAttempts - 1)
-                Debug.Log("Connection failed. Check logs, try again later.");
-            else
-                await Task.Delay(500);
-        }
-    }
-
     private async void OnAfterMostRecentScoreSet(float newScore)
     {
         bool isNewHighScore = CheckForNewHighScore(newScore);
 
         if (isNewHighScore)
         {
+            Debug.Log("New High Score!");
             await GetPlayerNameAsync();
-            await UpdateHighScoreTableAsync(newScore);
+            await UploadNewHighScoreAsync(newScore);
         }
+        Debug.Log("No new high score.");
     }
 
     private async Task GetPlayerNameAsync()
@@ -104,13 +71,15 @@ public class RecordHighScore : MonoBehaviour
 
     private bool CheckForNewHighScore(float newScore)
     {
-        bool noHighScores = highScores.Count() == 0;
+        Debug.Log("Checking for a new high score...");
+
+        bool isHighScoreListFull = highScores.Count >= Leaderboard.SizeOfHighScoreList;
         var lowerScores = highScores.Where(x => x.Time > newScore);
 
-        return lowerScores.Count() > 0 || noHighScores;
+        return lowerScores.Count() > 0 || !isHighScoreListFull;
     }
 
-    private async Task UpdateHighScoreTableAsync(float newScore)
+    private async Task UploadNewHighScoreAsync(float newScore)
     {
         var newHighScoreInfo = new HighScoreInfo { Name = playerName, Time = newScore };
 
@@ -118,7 +87,7 @@ public class RecordHighScore : MonoBehaviour
         {
             Debug.Log("Uploading high score data to Azure...");
 
-            await highScoreTable.InsertAsync(newHighScoreInfo);
+            await Leaderboard.HighScoreTable.InsertAsync(newHighScoreInfo);
 
             Debug.Log("Finished uploading high score data.");
         }
