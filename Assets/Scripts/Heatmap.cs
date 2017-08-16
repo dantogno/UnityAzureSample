@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Microsoft.WindowsAzure.MobileServices;
+using UnityEngine.SceneManagement;
 
-public class SpawnCrashMarkers : MonoBehaviour
+public class Heatmap : MonoBehaviour
 {
     [SerializeField]
     private GameObject markerPrefab;
@@ -54,6 +55,24 @@ public class SpawnCrashMarkers : MonoBehaviour
             GameObject marker = GameObject.Instantiate(markerPrefab);
             marker.transform.position = new Vector3 { x = item.X, y = item.Y, z = item.Z };
         }
+    }
+
+    public async void DeleteCrashDataAsync()
+    {
+        Debug.Log("Deleting crash data...");
+        foreach (var item in crashesFromServer)
+        {
+            try
+            {
+                await crashesTable.DeleteAsync(item);
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("Error deleting crash data: " + e.Message);
+            }
+            Debug.Log("Done deleting crash data.");
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

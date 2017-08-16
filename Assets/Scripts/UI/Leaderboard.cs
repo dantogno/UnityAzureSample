@@ -106,11 +106,20 @@ public class Leaderboard : MonoBehaviour
 
     public static async Task DeleteAllEntriesAsync()
     {
+       Debug.Log("Deleting leaderboard data...");
+
         var fullHighScoreList = await DownloadHighScoresAsync(false);
 
         foreach (var item in fullHighScoreList)
         {
-            await HighScoreTable.DeleteAsync(item);
+            try
+            {
+                await HighScoreTable.DeleteAsync(item);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error deleting leaderboard data: " + e.Message);
+            }
         }
     }
 }

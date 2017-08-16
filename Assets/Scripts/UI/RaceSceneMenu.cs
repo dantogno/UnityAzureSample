@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour 
+public class RaceSceneMenu : MonoBehaviour 
 {
-    public void RaceButtonClicked()
+
+    public void RestartClicked()
     {
-        SceneManager.LoadScene("RaceScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void HeatmapButtonClicked()
@@ -20,8 +21,9 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("LeaderboardScene");
     }
 
-    public void ExitButtonClicked()
+    public void MenuButtonClicked()
     {
-        Application.Quit();
+        SceneManager.LoadScene(0);
+
     }
 }
