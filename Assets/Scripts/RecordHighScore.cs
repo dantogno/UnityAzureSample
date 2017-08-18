@@ -48,7 +48,10 @@ public class RecordHighScore : MonoBehaviour
             await GetPlayerNameAsync();
             await UploadNewHighScoreAsync(newScore);
         }
-        Debug.Log("No new high score.");
+        else
+        {
+            Debug.Log("No new high score.");
+        }
     }
 
     private async Task GetPlayerNameAsync()
