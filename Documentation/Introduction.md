@@ -8,7 +8,7 @@ The following example project will walkthrough the steps of setting up a Unity p
 
 ## Download the completed project
 
-The completed project is available on GitHub. However, the walkthrough will assume you are starting from an empty new project and provide links to download assets when necessary.
+The completed project is available on GitHub. However, the walkthrough will assume you are starting from an empty new project and will provide links to download assets when necessary.
 
 ## Next steps
 * [Configure Easy tables in Azure](Configure%20Easy%20tables%20in%20Azure.md)
