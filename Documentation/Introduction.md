@@ -1,4 +1,4 @@
-# Using Azure Easy tables with Unity
+# Using Azure Easy tables with Unity - walkthrough
 
 ## Introduction
 
@@ -11,4 +11,4 @@ The following example project will walkthrough the steps of setting up a Unity p
 The completed project is available on GitHub. However, the walkthrough will assume you are starting from an empty new project and provide links to download assets when necessary.
 
 ## Next steps
-[Configure Easy tables in Azure](Prepare%20the%20development%20environment.md)
+* [Configure Easy tables in Azure](Configure%20Easy%20tables%20in%20Azure.md)

@@ -1,10 +1,13 @@
 # Configure Easy tables in Azure
+
 Easy tables are a feature of [Azure Mobile Apps](https://azure.microsoft.com/en-us/services/app-service/mobile/) that allow setup and management of SQL tables directly in the Azure portal GUI. Azure Mobile Apps support many features, but the scope of this example is limited to reading and writing data stored in an Azure Mobile App backend from a Unity project.
 
 ## Create a new Azure Mobile App
+
 Log in to the [Azure portal](https://ms.portal.azure.com). If you do not have an Azure subscription, the [free trial](https://azure.microsoft.com/en-us/free/) or included credits from [Visual Studio Dev Essentials](https://www.visualstudio.com/dev-essentials/) will more than suffice for completing this walkthrough.
 
 **Once inside the portal:**
+
 1. Select **New > Web + Mobile > Mobile App > Create**.
 
   ![Create a new Mobile App](media/configure-easy-tables-image1.png)
@@ -93,5 +96,6 @@ Log in to the [Azure portal](https://ms.portal.azure.com). If you do not have an
 
   ![Click Initialize App](media/configure-easy-tables-image10.png)
 
-## Conclusion
-This concludes configuration of the Azure Mobile App backend to use Easy tables. The next section will explain how to create Easy tables and manage table schema for use in the Unity sample project.
+## Next steps
+
+* [Setup table schema](Setup%20table%20schema.md)

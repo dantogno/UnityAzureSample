@@ -1,4 +1,5 @@
 # Setup table schema
+
 Now that you have a Mobile App on Azure with Easy tables initialized, it's time to build the tables that will keep track of data sent from a Unity game.
 
 ## Setup the crash heatmap table
@@ -73,5 +74,6 @@ Now that you have a Mobile App on Azure with Easy tables initialized, it's time 
 
   ![Setup x column](media/setup-table-schema-image15.png)
 
-## Conclusion
-This concludes Easy table setup in the Azure portal. The next sections will cover setting up a sample project in Unity that can read and write to Azure Easy tables.
+## Next steps
+
+* [Prepare the development environment](Prepare%20the%20development%20environment.md)
