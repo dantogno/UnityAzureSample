@@ -128,4 +128,6 @@ using Microsoft.WindowsAzure.MobileServices;
 
 If InteliSense detects these using statements, the setup was completed properly. If there are any errors or InteliSense does not recognize these packages, revisit the steps above.
 
-In the next section, you will begin adding sample game assets and scripts.
+## Next steps
+
+* [Create data model classes](Create%20data%20model%20classes.md)

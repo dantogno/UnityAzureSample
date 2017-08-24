@@ -37,3 +37,7 @@ The Unity project must contain data model classes that match the table schema cr
       public string Id { get; set; }
   }
   ```
+
+  ## Next steps
+
+  * [Implement the Azure MobileServiceClient](/Implement%20the%20Azure%20MobileServiceClient.md)
