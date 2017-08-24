@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Microsoft.WindowsAzure.MobileServices;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
 
-public class TestClientConnection : MonoBehaviour {
-
+public class TestClientConnection : MonoBehaviour
+{
 	// Use this for initialization
 	void Start ()
     {

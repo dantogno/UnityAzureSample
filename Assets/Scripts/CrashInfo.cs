@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CrashInfo
+﻿public class CrashInfo
 {
     public string Id { get; set; }
     public float X { get; set; }
