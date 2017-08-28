@@ -7,7 +7,6 @@ using System.Linq;
 
 public class TestClientConnection : MonoBehaviour
 {
-	// Use this for initialization
 	void Start ()
     {
         Task.Run(TestTableConnection);
@@ -15,10 +14,12 @@ public class TestClientConnection : MonoBehaviour
     
     private async Task TestTableConnection()
     {
+        var testCrashID = "testCrash";
+
         var table = AzureMobileServiceClient.Client.GetTable<CrashInfo>();
         try
         {
-            await table.InsertAsync(new CrashInfo { Id = "testCrash", X = 1, Y = 2, Z = 3 });
+            await table.InsertAsync(new CrashInfo { Id = testCrashID, X = 1, Y = 2, Z = 3 });
         }
         catch (Exception e)
         {
@@ -26,7 +27,6 @@ public class TestClientConnection : MonoBehaviour
         }
 
         var allCrashes = new List<CrashInfo>();
-
         try
         {
             var list = await table.ToListAsync();
@@ -40,10 +40,10 @@ public class TestClientConnection : MonoBehaviour
             Debug.Log("Error fetching crashes" + e.Message);
         }
 
-        var testCrashInfo = allCrashes.Where(crash => crash.Id == "testCrash").FirstOrDefault();
+        var testCrashInfo = allCrashes.Where(crash => crash.Id == testCrashID).FirstOrDefault();
 
-        Debug.Log("test crash?: " + testCrashInfo.Id);
+        Debug.Log("Test crash ID: " + testCrashInfo.Id);
 
-        Debug.Assert(testCrashInfo.Id == "testCrash");
+        Debug.Assert(testCrashInfo.Id == testCrashID);
     }
 }
