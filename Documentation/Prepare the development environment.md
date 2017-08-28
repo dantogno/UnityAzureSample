@@ -71,7 +71,7 @@ The Unity .NET 4.6 equivalent scripting runtime allows use of the System.Net.Htt
 
 3. Inside the Assets directory, **right click** and select **New > Text Document**.
 
-4. Open the new text document in a text editor and add the line: `r:System.Net.Http.dll`
+4. Open the new text document in a text editor and add the line: `-r:System.Net.Http.dll`
 
 5. Save the document and close it.
 
