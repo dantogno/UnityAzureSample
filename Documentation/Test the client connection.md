@@ -4,7 +4,7 @@ Now that the AzureMobileServiceClient singleton is created, it's time to test th
 
 ## Create the TestClientConnection script
 
-1. Right click the Scripts folder in the Unity project window and create a new C# script called **TestClientConnection**.
+1. Inside the **Scripts** folder in Unity, create a new C# script called **TestClientConnection**.
 
 2. Open the script in Visual Studio, delete any template code, and add the following:
 
@@ -14,53 +14,100 @@ Now that the AzureMobileServiceClient singleton is created, it's time to test th
   using System.Threading.Tasks;
   using System;
   using System.Linq;
+  using Microsoft.WindowsAzure.MobileServices;
 
   public class TestClientConnection : MonoBehaviour
   {
-  	void Start ()
+      void Start()
       {
           Task.Run(TestTableConnection);
-  	}
+      }
 
       private async Task TestTableConnection()
       {
-          var testCrashID = "testCrash";
           var table = AzureMobileServiceClient.Client.GetTable<CrashInfo>();
 
+          Debug.Log("Testing ToListAsync...");
+          await TestToListAsync(table);
+
+          Debug.Log("Testing InsertAsync...");
+          await TestInsertAsync(table);
+
+          Debug.Log("Testing DeleteAsync...");
+          await TestDeleteAsync(table);
+
+          Debug.Log("All testing complete.");
+      }
+
+      private async Task TestInsertAsync(IMobileServiceTable<CrashInfo> table)
+      {
           try
           {
-              await table.InsertAsync(new CrashInfo { Id = testCrashID, X = 1, Y = 2, Z = 3 });
+              var allEntries = await TestToListAsync(table);
+              var initialCount = allEntries.Count();
+
+              await table.InsertAsync(new CrashInfo { X = 1, Y = 2, Z = 3 });
+
+              allEntries = await TestToListAsync(table);
+              var newCount = allEntries.Count();
+
+              Debug.Assert(newCount == initialCount + 1, "InsertAsync failed!");
           }
-          catch (Exception e)
+          catch (Exception)
           {
-              Debug.Log("Error inserting item: " + e.Message);
+              throw;
           }
+      }
 
-          var allCrashes = new List<CrashInfo>();
-
+      private async Task<List<CrashInfo>> TestToListAsync(IMobileServiceTable<CrashInfo> table)
+      {
           try
           {
-              var list = await table.ToListAsync();
-              foreach (var crash in list)
+              var allEntries = await table.ToListAsync();
+              Debug.Assert(allEntries != null, "ToListAsync failed!");
+              return allEntries;
+          }
+          catch (Exception)
+          {
+
+              throw;
+          }
+      }
+
+      private async Task TestDeleteAsync(IMobileServiceTable<CrashInfo> table)
+      {
+          var allEntries = await TestToListAsync(table);
+
+          foreach (var item in allEntries)
+          {
+              try
               {
-                  allCrashes.Add(crash);
+                  await table.DeleteAsync(item);
+              }
+              catch (Exception)
+              {
+                  throw;
               }
           }
-          catch (Exception e)
-          {
-              Debug.Log("Error fetching crashes" + e.Message);
-          }
 
-          var testCrashInfo = allCrashes.Where(crash => crash.Id == testCrashID).FirstOrDefault();
+          allEntries = await TestToListAsync(table);
 
-          Debug.Log("Test crash ID: " + testCrashInfo.Id);
-          Debug.Assert(testCrashInfo.Id == testCrashID);
+          Debug.Assert(allEntries.Count() == 0, "DeleteAsync failed!");
       }
   }
   ```
 
-3. Create an empty game object in the Unity scene and rename it **TestClientConnection**.
+3. In the Unity **GameObject** menu, select **GameObject > Create Empty** to create an empty GameObject in the Unity scene. Rename it **TestClientConnection**.
 
-4. Drag the TestClientConnection script onto the TestClientConnection game object.
+4. **Drag** the TestClientConnection script from the Unity **Project** window onto the TestClientConnection GameObject in the **Hierarchy** window.
 
-5. Click the **Play** button in Unity and observe the debug Console window.
+5. In the Unity menu, select **File > Save Scene as...**. Name the scene **Client Connection Test** and click **Save**.
+
+5. Click the **Play** button in Unity and observe the Console window. Confirm that none of the assertions have failed.
+
+6. Open the CrashInfo Easy table on the Azure portal. It should now have an entry with **X,Y,Z** coordinates of **(1, 2, 3)** and a value of **true** for in the **deleted** column.
+
+  ![Easy table entry](/media/test-client-connection-image1.png)
+
+## Next steps
+* Import the sample game assets.

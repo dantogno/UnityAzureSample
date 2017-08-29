@@ -3,46 +3,84 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using Microsoft.WindowsAzure.MobileServices;
 
 public class TestClientConnection : MonoBehaviour
 {
-	void Start ()
+    void Start()
     {
         Task.Run(TestTableConnection);
-	}
-    
+    }
+
     private async Task TestTableConnection()
     {
-        var testCrashID = "testCrash";
         var table = AzureMobileServiceClient.Client.GetTable<CrashInfo>();
 
+        Debug.Log("Testing ToListAsync...");
+        await TestToListAsync(table);
+
+        Debug.Log("Testing InsertAsync...");
+        await TestInsertAsync(table);
+
+        Debug.Log("Testing DeleteAsync...");
+        await TestDeleteAsync(table);
+
+        Debug.Log("All testing complete.");
+    }
+
+    private async Task TestInsertAsync(IMobileServiceTable<CrashInfo> table)
+    {
         try
         {
-            await table.InsertAsync(new CrashInfo { Id = testCrashID, X = 1, Y = 2, Z = 3 });
+            var allEntries = await TestToListAsync(table);
+            var initialCount = allEntries.Count();
+
+            await table.InsertAsync(new CrashInfo { X = 1, Y = 2, Z = 3 });
+
+            allEntries = await TestToListAsync(table);
+            var newCount = allEntries.Count();
+
+            Debug.Assert(newCount == initialCount + 1, "InsertAsync failed!");
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Debug.Log("Error inserting item: " + e.Message);
+            throw;
         }
+    }
 
-        var allCrashes = new List<CrashInfo>();
-
+    private async Task<List<CrashInfo>> TestToListAsync(IMobileServiceTable<CrashInfo> table)
+    {
         try
         {
-            var list = await table.ToListAsync();
-            foreach (var crash in list)
+            var allEntries = await table.ToListAsync();
+            Debug.Assert(allEntries != null, "ToListAsync failed!");
+            return allEntries;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private async Task TestDeleteAsync(IMobileServiceTable<CrashInfo> table)
+    {
+        var allEntries = await TestToListAsync(table);
+
+        foreach (var item in allEntries)
+        {
+            try
             {
-                allCrashes.Add(crash);
+                await table.DeleteAsync(item);
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
-        catch (Exception e)
-        {
-            Debug.Log("Error fetching crashes" + e.Message);
-        }
 
-        var testCrashInfo = allCrashes.Where(crash => crash.Id == testCrashID).FirstOrDefault();
+        allEntries = await TestToListAsync(table);
 
-        Debug.Log("Test crash ID: " + testCrashInfo.Id);
-        Debug.Assert(testCrashInfo.Id == testCrashID);
+        Debug.Assert(allEntries.Count() == 0, "DeleteAsync failed!");
     }
 }
