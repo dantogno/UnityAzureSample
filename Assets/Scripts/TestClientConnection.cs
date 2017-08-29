@@ -1,5 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 using System;
@@ -15,8 +13,8 @@ public class TestClientConnection : MonoBehaviour
     private async Task TestTableConnection()
     {
         var testCrashID = "testCrash";
-
         var table = AzureMobileServiceClient.Client.GetTable<CrashInfo>();
+
         try
         {
             await table.InsertAsync(new CrashInfo { Id = testCrashID, X = 1, Y = 2, Z = 3 });
@@ -27,6 +25,7 @@ public class TestClientConnection : MonoBehaviour
         }
 
         var allCrashes = new List<CrashInfo>();
+
         try
         {
             var list = await table.ToListAsync();
@@ -43,7 +42,6 @@ public class TestClientConnection : MonoBehaviour
         var testCrashInfo = allCrashes.Where(crash => crash.Id == testCrashID).FirstOrDefault();
 
         Debug.Log("Test crash ID: " + testCrashInfo.Id);
-
         Debug.Assert(testCrashInfo.Id == testCrashID);
     }
 }
