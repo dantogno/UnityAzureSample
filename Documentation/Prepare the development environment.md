@@ -83,11 +83,10 @@ The Unity .NET 4.6 equivalent scripting runtime allows use of the System.Net.Htt
 
     ![Show Assets folder in Explorer](media/prepare-dev-environment-image8.png)
 
-5. Restart Unity.
-
 Upon completing these steps you should have a file named **mcs.rsp** with the line `r:System.Net.Http.dll` in your Unity project's root **Assets** directory.
 
->**Note:** The reference functionality requires Visual Studio Tools for Unity 3.3 and above, which is included in the Visual Studio Preview 15.3 Unity workload. If this step does not work for you, ensure that you have the correct version of VSTU installed.
+>[!NOTE]
+> The reference functionality requires Visual Studio Tools for Unity 3.3 and above, which is included in the Visual Studio Preview 15.3 Unity workload. If this step does not work for you, ensure that you have the correct version of VSTU installed.
 
 ## Add the Newtonsoft.Json NuGet package to your project
 
