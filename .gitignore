@@ -28,7 +28,8 @@ sysinfo.txt
 
 # Builds
 *.apk
-*.unitypackage
+
+# Ignore by name
 screenshots/azure easy table.PNG
 screenshots.zip
 screenshots/Car Sample with Azure 8_8_2017 11_45_06 AM.png

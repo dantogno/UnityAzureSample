@@ -105,7 +105,7 @@ Now that the AzureMobileServiceClient singleton is created, it's time to test th
 
 5. Click the **Play** button in Unity and observe the Console window. Confirm that none of the assertions have failed.
 
-6. Open the CrashInfo Easy table on the Azure portal. It should now have an entry with **X,Y,Z** coordinates of **(1, 2, 3)** and a value of **true** for in the **deleted** column.
+6. Open the CrashInfo Easy table on the Azure portal. It should now have an entry with **X,Y,Z** coordinates of **(1, 2, 3)** and a value of **true** for in the **deleted** column. Each time you run the test, a new entry with the same values but a unique ID should be added to the table.
 
   ![Easy table entry](/media/test-client-connection-image1.png)
 
