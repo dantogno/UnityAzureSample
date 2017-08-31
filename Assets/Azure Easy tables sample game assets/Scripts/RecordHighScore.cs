@@ -10,9 +10,6 @@ using UnityEngine.UI;
 public class RecordHighScore : MonoBehaviour 
 {
     [SerializeField]
-    private int numberOfAttempts = 3;
-
-    [SerializeField]
     private InputField nameInputField;
 
     [SerializeField]
