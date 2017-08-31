@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class RecordCrashInfo : MonoBehaviour
 {
+    [Tooltip("Time in seconds after a crash before a new crash can be recorded.")]
     [SerializeField]
-    private float crashRecordingCooldown = 5;
+    private float crashRecordingCooldown = 1;
 
+    [Tooltip("How fast car must be traveling before crash can be recorded.")]
     [SerializeField]
     private float crashRecordingMinVelocity = 8;
 
@@ -17,8 +19,9 @@ public class RecordCrashInfo : MonoBehaviour
     [SerializeField]
     private GameObject crashMarkerPrefab;
 
+    [Tooltip("If turned on, crash markers spawn when the player crashes.")]
     [SerializeField]
-    private bool SpawnDebugMarkers = false;
+    private bool spawnDebugMarkers = false;
 
     private bool isOnCooldown = false;
     private bool meetsMinVelocity = false;
@@ -48,7 +51,7 @@ public class RecordCrashInfo : MonoBehaviour
                 Z = collision.transform.position.z
             });
 
-            if (SpawnDebugMarkers)
+            if (spawnDebugMarkers && Debug.isDebugBuild)
                 Instantiate(crashMarkerPrefab, collision.transform.position, Quaternion.identity);
 
             isOnCooldown = true;
