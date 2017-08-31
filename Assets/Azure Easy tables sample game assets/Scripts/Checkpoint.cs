@@ -44,7 +44,6 @@ public class Checkpoint : MonoBehaviour
             if (isFinishLine && !isRaceFinished)
             {
                 isRaceFinished = true;
-                //TODO: end the level!
                 Debug.Log("Race finished!");
                 RaceFinished?.Invoke();
             }

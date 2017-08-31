@@ -8,7 +8,7 @@ Now that the AzureMobileServiceClient singleton is created, it's time to test th
 
 2. Open the script in Visual Studio, delete any template code, and add the following:
 
-  ```
+  ```csharp
   using System.Collections.Generic;
   using UnityEngine;
   using System.Threading.Tasks;
