@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Microsoft.WindowsAzure.MobileServices;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
-using System;
 using System.Linq;
 using UnityEngine.UI;
 
