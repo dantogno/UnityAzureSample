@@ -74,4 +74,4 @@ public async void DeleteCrashDataAsync()
 
 ## Next steps
 
-* Review the leaderboard explanation
+* [LeaderboardScene explanation](LeaderboardScene%20explanation.md)
