@@ -53,4 +53,4 @@ Before viewing the leaderboard or heatmap, it's best to create some sample data 
 
 ## Next steps
 
-* Explanation of sample game
+* [RaceScene explanation](RaceScene%20explanation.md)

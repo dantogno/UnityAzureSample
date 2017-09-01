@@ -110,4 +110,4 @@ Now that the AzureMobileServiceClient singleton is created, it's time to test th
   ![Easy table entry](/media/test-client-connection-image1.png)
 
 ## Next steps
-* Import the sample game assets.
+* [Import the sample game assets](Import%20sample%20game%20assets.md).

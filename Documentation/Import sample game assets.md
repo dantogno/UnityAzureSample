@@ -28,4 +28,4 @@ Once the files have completed importing, the required scene files must be added 
 
 ## Next steps
 
-* Test the sample game
+* [Test the sample game](Test%20the%20sample%20game.md)

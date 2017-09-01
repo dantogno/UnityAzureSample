@@ -265,4 +265,4 @@ public class RecordHighScore : MonoBehaviour
 
 ## Next steps
 
-* Review the HeatmapScene explanation.
+* [HeatmapScene explanation](HeatmapScene%20explanation.md).
