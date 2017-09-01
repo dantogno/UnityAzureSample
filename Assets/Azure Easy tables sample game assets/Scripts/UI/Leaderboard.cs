@@ -62,7 +62,7 @@ public class Leaderboard : MonoBehaviour
                 Debug.Log("Done downloading high score data.");
                 return highScoreList;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.Log("Error connecting: " + e.Message);
             }
