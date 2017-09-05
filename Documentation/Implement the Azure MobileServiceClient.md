@@ -67,4 +67,5 @@ There should only be a single instance of `MobileServiceClient`, so the walkthro
 > The comment about the Unity Mono certificate store is explained in a subsequent section of the walkthrough. For now, just leave `ignoreTls` as true.
 
 ## Next steps
-* [Test the client connection](Test%20the%20client%20connection.md)
+
+* [Update Unity Mono security store](Update%20Unity%20Mono%20security%20certificate%20store.md)

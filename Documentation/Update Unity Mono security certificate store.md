@@ -35,3 +35,7 @@ The mozroots tool is included in Mono. It downloads and installs Mozilla's list 
   ```
 
 5. Now you should be able to set `ignoreTls` to false in `AzureMobileServiceClient.cs` and run the example without receiving TLS related errors.
+
+## Next steps
+
+* [Test the client connection](Test%20the%20client%20connection.md)
