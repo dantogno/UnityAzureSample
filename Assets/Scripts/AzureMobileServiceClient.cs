@@ -2,10 +2,8 @@
 
 public static class AzureMobileServiceClient
 {
-    // Either use mozroots / cert-syc to update your Unity Mono certificate store,
-    // or set ignoreTls to true to ignore security certificate errors.
-    private const bool ignoreTls = true;
-    private const string backendUrl = "http://unity-easytables.azurewebsites.net";
+    // Use mozroots / cert-syc to update your Unity Mono certificate store!
+    private const string backendUrl = "MOBILE_APP_URL";
     private static MobileServiceClient client;
 
     public static MobileServiceClient Client
@@ -14,10 +12,6 @@ public static class AzureMobileServiceClient
         {
             if (client == null)
             {
-                if (ignoreTls)
-                {
-                    System.Net.ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => { return true; };
-                }
                 client = new MobileServiceClient(backendUrl);
             }
 
